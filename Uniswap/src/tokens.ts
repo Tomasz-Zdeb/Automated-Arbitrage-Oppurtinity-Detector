@@ -1,17 +1,9 @@
-import { SupportedChainId, Token } from '@uniswap/sdk-core'
+import { ChainId, SUPPORTED_CHAINS, Token } from '@uniswap/sdk-core'
 
 // https://docs.uniswap.org/sdk/core/reference/classes/Token#decimals
 
-// TOP 5 Tokenów obecnych na uniswap v3 malejąco po: TVL – Total Value Locked
-// [ ] - WETH
-// [ ] - USDC
-// [ ] - WBTC
-// [ ] - USDT
-// [ ] - DAI
-
-
 export const WETH_TOKEN = new Token(
-    SupportedChainId.MAINNET,
+    ChainId.MAINNET,
     '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     18,
     'WETH',
@@ -20,7 +12,7 @@ export const WETH_TOKEN = new Token(
 )
   
   export const USDC_TOKEN = new Token(
-    SupportedChainId.MAINNET,
+    ChainId.MAINNET,
     '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
     6,
     'USDC',
@@ -29,7 +21,7 @@ export const WETH_TOKEN = new Token(
   )
 
   export const WBTC_TOKEN = new Token(
-    SupportedChainId.MAINNET,
+    ChainId.MAINNET,
     '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
     8,
     'WBTC',
