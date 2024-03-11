@@ -1,0 +1,25 @@
+{
+  "name": "automated-sushiswap-arbitrage-oppurtinity-finder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run build && node dist/app.js",
+    "build": "tsc"
+  },
+  "keywords": [
+    "sushiswap",
+    "arbitrage"
+  ],
+  "author": "Tomasz Zdeb",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.9.6",
+    "ethers": "^6.11.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
