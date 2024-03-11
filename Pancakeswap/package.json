@@ -2,7 +2,7 @@
   "name": "automated-pancakeswap-arbitrage-oppurtinity-finder",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
     "build": "tsc"
