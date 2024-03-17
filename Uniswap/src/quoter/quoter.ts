@@ -4,13 +4,12 @@ import { getProvider } from '../utilities/configProvider';
 import { getPoolConstants } from '../pool-factory/poolFactory'
 import { PoolFactoryConfig } from '../pool-factory/poolFactoryConfig.interface'
 import { fromReadableAmount, toReadableAmount } from '../utilities/valueConverters';
+import { getQuoterContractAddress } from '../utilities/configProvider';
 
-export const QUOTER_CONTRACT_ADDRESS = '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6'
-//https://github.com/Uniswap/v3-periphery/blob/v1.0.0/contracts/lens/Quoter.sol
 
 export async function quoteWithConfig(config: PoolFactoryConfig): Promise<string> {
     const quoterContract = new ethers.Contract(
-        QUOTER_CONTRACT_ADDRESS,
+        getQuoterContractAddress(),
         Quoter.abi,
         getProvider()
     )
@@ -27,11 +26,11 @@ export async function quoteWithConfig(config: PoolFactoryConfig): Promise<string
     return toReadableAmount(quotedAmountOut, config.tokens.out.decimals)
 }
 
-export async function quoteWithExplicitPars(quoterContract: ethers.Contract,
+export async function quoteWithExplicitParameters(quoterContract: ethers.Contract,
     tokenIn: string,
     tokenOut: string,
     fee: number,
-    amount: BigNumberish): Promise<string> {
+    amount: BigNumberish): Promise<BigNumberish> {
 
     return await quoterContract.quoteExactInputSingle.staticCall(
         tokenIn,

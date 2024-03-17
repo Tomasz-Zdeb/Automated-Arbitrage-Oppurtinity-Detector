@@ -7,6 +7,6 @@ export function fromReadableAmount(
     return ethers.parseUnits(amount.toString(), decimals)
 }
 
-export function toReadableAmount(rawAmount: number, decimals: number): string {
+export function toReadableAmount(rawAmount: BigNumberish, decimals: number): string {
     return ethers.formatUnits(rawAmount, decimals)
 }
