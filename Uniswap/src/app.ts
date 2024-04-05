@@ -1,6 +1,6 @@
 import { quoteWithExplicitParameters } from './quoter/quoter'
 import { FeeAmount } from '@uniswap/v3-sdk'
-import { ethers} from 'ethers'
+import { BigNumberish, ethers} from 'ethers'
 import  Quoter  from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json'
 import { getProvider } from './utilities/configProvider';
 import { getQuoterContractAddress } from './utilities/configProvider';
@@ -26,13 +26,44 @@ const quoterContract = new ethers.Contract(
 
 
 
-quoteWithExplicitParameters(quoterContract, WETH, USDC, FeeAmount.LOW, ethers.parseUnits("1",18)).then((value) => {console.log("1 WETH -> USDC: " + toReadableAmount(value,6));})
-quoteWithExplicitParameters(quoterContract, USDC, WETH, FeeAmount.LOW, ethers.parseUnits("1",6)).then((value) => {console.log("1 USDC -> WETH: " + toReadableAmount(value,18));})
-quoteWithExplicitParameters(quoterContract, WETH, WBTC, FeeAmount.LOW, ethers.parseUnits("1",18)).then((value) => {console.log("1 WETH -> WBTC: " + toReadableAmount(value,8));})
-quoteWithExplicitParameters(quoterContract, WBTC, WETH, FeeAmount.LOW, ethers.parseUnits("1",8)).then((value) => {console.log("1 WBTC -> WETH: " + toReadableAmount(value,18));})
-quoteWithExplicitParameters(quoterContract, WBTC, USDC, FeeAmount.MEDIUM, ethers.parseUnits("1",8)).then((value) => {console.log("1 WBTC -> USDC: " + toReadableAmount(value,6));})
-quoteWithExplicitParameters(quoterContract, USDC, WBTC, FeeAmount.MEDIUM, ethers.parseUnits("1",6)).then((value) => {console.log("1 USDC -> WBTC: " + toReadableAmount(value,8));})
+//quoteWithExplicitParameters(quoterContract, WETH, USDC, FeeAmount.LOW, ethers.parseUnits("1",18)).then((value) => {console.log("1 WETH -> USDC: " + toReadableAmount(value,6));})
+//quoteWithExplicitParameters(quoterContract, USDC, WETH, FeeAmount.LOW, ethers.parseUnits("1",6)).then((value) => {console.log("1 USDC -> WETH: " + toReadableAmount(value,18));})
+//quoteWithExplicitParameters(quoterContract, WETH, WBTC, FeeAmount.LOW, ethers.parseUnits("1",18)).then((value) => {console.log("1 WETH -> WBTC: " + toReadableAmount(value,8));})
+//quoteWithExplicitParameters(quoterContract, WBTC, WETH, FeeAmount.LOW, ethers.parseUnits("1",8)).then((value) => {console.log("1 WBTC -> WETH: " + toReadableAmount(value,18));})
+//quoteWithExplicitParameters(quoterContract, WBTC, USDC, FeeAmount.MEDIUM, ethers.parseUnits("1",8)).then((value) => {console.log("1 WBTC -> USDC: " + toReadableAmount(value,6));})
+//quoteWithExplicitParameters(quoterContract, USDC, WBTC, FeeAmount.MEDIUM, ethers.parseUnits("1",6)).then((value) => {console.log("1 USDC -> WBTC: " + toReadableAmount(value,8));})
 
+
+
+async function validateTraingleOpportunity(initialAmount :BigNumberish): Promise<{ initialAmount: BigNumberish; finalResult: string }> {
+    let A = await quoteWithExplicitParameters(quoterContract, WETH, USDC, FeeAmount.LOW, ethers.parseUnits(initialAmount.toString(),18));
+    let B = await quoteWithExplicitParameters(quoterContract, USDC, WBTC, FeeAmount.MEDIUM, ethers.parseUnits(toReadableAmount(A,6),6))
+    let C = await quoteWithExplicitParameters(quoterContract, WBTC, WETH, FeeAmount.LOW, ethers.parseUnits(toReadableAmount(B,8),8))
+    const finalResult = toReadableAmount(C, 18);
+    return {
+        initialAmount: initialAmount,
+        finalResult: finalResult
+    };
+}
+
+async function main(A :BigNumberish, B :BigNumberish){
+    const now = new Date().toLocaleTimeString();
+    console.log(`TIMESTAMP: ${now}`);
+    let aa = await validateTraingleOpportunity(A)
+    console.log(`WETH | IN: ${aa.initialAmount} -> OUT: ${aa.finalResult}`);
+    let bb = await validateTraingleOpportunity(B)
+    console.log(`WETH | IN: ${bb.initialAmount} -> OUT: ${bb.finalResult}`);
+}
+
+setInterval(() => {
+    main(0.01,1);
+}, 2000);
+
+
+
+
+
+//quoteWithExplicitParameters(quoterContract, USDC, WBTC, FeeAmount.MEDIUM, ethers.parseUnits("3557.226629",6)).then((value) => {console.log("3557.226629 USDC -> WBTC: " + toReadableAmount(value,8));})
 
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
