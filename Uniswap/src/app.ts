@@ -2,9 +2,16 @@ import { quoteWithExplicitParameters } from './quoter/quoter'
 import { FeeAmount } from '@uniswap/v3-sdk'
 import { BigNumberish, ethers} from 'ethers'
 import  Quoter  from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json'
-import { getProvider } from './utilities/configProvider';
-import { getQuoterContractAddress } from './utilities/configProvider';
-import { toReadableAmount } from './utilities/valueConverters';
+import { getProvider } from './utilities/configProvider'
+import { getQuoterContractAddress } from './utilities/configProvider'
+import { toReadableAmount } from './utilities/valueConverters'
+import { ConfigurationManager } from './interfaces/configurationManager'
+import { DataRepository } from './interfaces/dataRepository'
+import { DataWriter } from './interfaces/dataWriter'
+import { DataProcessor } from './interfaces/dataProcessor'
+import { Executor } from './interfaces/executor'
+import { Logger } from './interfaces/logger'
+
 
 // FeeAmount Enum:
 // 0.01% - LOWEST = 100
@@ -60,7 +67,7 @@ setInterval(() => {
 }, 2000);
 
 
-
+// Add another mode: validate tokens and pools config
 
 
 //quoteWithExplicitParameters(quoterContract, USDC, WBTC, FeeAmount.MEDIUM, ethers.parseUnits("3557.226629",6)).then((value) => {console.log("3557.226629 USDC -> WBTC: " + toReadableAmount(value,8));})
@@ -77,3 +84,34 @@ setInterval(() => {
 // https://docs.uniswap.org/sdk/v3/guides/swaps/quoting
 // https://github.com/Uniswap/v3-periphery/blob/v1.0.0/contracts/lens/Quoter.sol
 // https://github.com/Uniswap/v3-periphery/blob/main/deploys.md
+
+class MyApp {
+    private readonly configuration: ConfigurationManager;
+    private readonly dataRepository: DataRepository;
+    private readonly dataProcessor: DataProcessor;
+    private readonly dataWriter: DataWriter;
+    private readonly executor: Executor;
+    private readonly logger: Logger;
+
+    constructor(configuration: ConfigurationManager,
+        dataRepository: DataRepository,
+        dataProcessor: DataProcessor,
+        dataWriter: DataWriter,
+        executor: Executor,
+        logger: Logger) {
+            this.configuration = configuration;
+            this.dataRepository = dataRepository;
+            this.dataProcessor = dataProcessor;
+            this.dataWriter = dataWriter;
+            this.executor = executor;
+            this.logger = logger;
+        }
+
+    public run(): void{
+        try {
+
+        } catch (e) {
+
+        }
+    }
+}
