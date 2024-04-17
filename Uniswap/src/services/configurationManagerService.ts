@@ -1,19 +1,20 @@
-import { ConfigurationManager } from '../interfaces/configurationManager'
-import { DynamicConfigurationProvider } from '../interfaces/dynamicConfigurationProvider'
-import { StaticConfigurationProvider } from '../interfaces/staticConfigurationProvider'
-import { Configuration } from '../models/Configuration';
+import { IConfigurationSource } from '../interfaces/IConfigurationSource';
 
-export class ConfigurationManagerService implements ConfigurationManager {
-  private readonly configuration: Configuration;
+export class ConfigurationManagerService implements IConfigurationSource {
 
-  constructor(staticConfigurationProvider: StaticConfigurationProvider, 
-    dynamicConfigurationProvider: DynamicConfigurationProvider,
+  private configuration: any;
+
+  constructor(fileConfigurationProvider: IConfigurationSource, 
+    commandLineParser?: IConfigurationSource
   ) {
-    this.configuration = new Configuration(staticConfigurationProvider.getConfiguration(),
-      dynamicConfigurationProvider.getConfiguration());
+    this.configuration = fileConfigurationProvider.getConfiguration();
+    //TODO IMPLEMENT CONDITIONAL NON NULL FETCHING FOR COMMAND LINE PARSER
   }
 
-  getConfiguration(): Configuration {
+  //IMPLEMENT PRIVATE METHOD THAT WILL BE INVOKED IN CONSTRUCTOR THAT OVERRIDES/ADDSCONFIG
+  //FROM COMMAND LINE.
+
+  getConfiguration(): any{
     return this.configuration;
   }
 }
