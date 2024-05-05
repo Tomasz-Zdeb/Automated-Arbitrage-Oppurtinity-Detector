@@ -1,4 +1,6 @@
 {
+    "loggerLevel":"debug",
+    "loggerFilename":"AAOF-log",
     "jsonRpcProvider": "https://mainnet.infura.io/v3/[YOUR_PROJECT_ID]",
     "quoterContractAddress": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
     "tokens": [
@@ -8,7 +10,8 @@
           "decimals": 18,
           "symbol": "WETH",
           "name": "Wrapped Ether",
-          "explorerLink": "https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+          "explorerLink": "https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+          "fee": "LOW"
         },
         {
           "chainId": "MAINNET",
@@ -16,7 +19,8 @@
           "decimals": 6,
           "symbol": "USDC",
           "name": "USDC",
-          "explorerLink": "https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+          "explorerLink": "https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+          "fee": "LOW"
         },
         {
           "chainId": "MAINNET",
@@ -24,7 +28,8 @@
           "decimals": 8,
           "symbol": "WBTC",
           "name": "Wrapped BTC",
-          "explorerLink": "https://etherscan.io/address/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+          "explorerLink": "https://etherscan.io/address/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+          "fee": "LOW"
         }
       ]
 }

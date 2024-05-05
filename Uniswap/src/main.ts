@@ -1,47 +1,9 @@
-import { FeeAmount } from '@uniswap/v3-sdk'
-import { BigNumberish, Log, ethers} from 'ethers'
-import  Quoter  from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json'
-import { ValueConverter } from './utilities/ValueConverter'
-import { IDataSource } from './interfaces/IDataSource'
-import { IDataWriter } from './interfaces/IDataWriter'
-import { IDataProcessor } from './interfaces/IDataProcessor'
-import { IExecutor } from './interfaces/IExecutor'
-import { ILogger } from './interfaces/ILogger'
 import { JsonConfigurationProvider } from './services/JsonConfigurationProvider'
-import { DefaultLogger } from './services/DefaultLogger';
-import { LogDestination } from './enums/LogDestination';
 import { IConfigurationSource } from './interfaces/IConfigurationSource'
 import { ConfigurationManagerService } from './services/ConfigurationManagerService'
-import { UserMessages } from './utilities/UserMessages'
 import { App } from './App'
-import { DataSourceMock } from './mocks/DataSourceMock'
-import { DataProcessorMock } from './mocks/DataProcessorMock'
-import { DataWriterMock } from './mocks/DataWriterMock'
-import { ExecutorMock } from './mocks/ExecutorMock'
-
 
 let app = new App();
-
-
-
-
-
-
-
-
-function testConfig(){
-    var configurationManagerService: IConfigurationSource = new ConfigurationManagerService(
-        new JsonConfigurationProvider(App.defaultConfigPath)
-    );
-    
-    console.log(configurationManagerService.getConfiguration());
-    console.log(configurationManagerService.getConfiguration().tokens);
-}
-testConfig();
-
-
-
-
 
 
 
