@@ -4,7 +4,7 @@ import { ConfigurationManagerService } from './services/ConfigurationManagerServ
 import { App } from './App'
 
 let app = new App();
-
+app.run();
 
 
 
