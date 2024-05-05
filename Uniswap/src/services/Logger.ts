@@ -1,12 +1,12 @@
 // Logger.ts
 import { ILogger } from '../interfaces/ILogger';
-import { LoggerConfig } from '../models/LoggerConfig';
+import { ILoggerConfig } from '../interfaces/ILoggerConfig';
 import { createLogger, format, transports, Logger as WinstonLogger } from 'winston';
 
 export class Logger implements ILogger {
     private logger: WinstonLogger;
 
-    constructor(config: LoggerConfig) {
+    constructor(config: ILoggerConfig) {
         const date = new Date();
         const timestamp = date.toISOString().replace(/:\d+\.\d+Z$/, '').replace(/:/g, '');
         const filenameWithTimestamp = `${config.filename}-${timestamp}.log`;
