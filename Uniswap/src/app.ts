@@ -5,7 +5,6 @@ import { IExecutor } from './interfaces/IExecutor'
 import { IConfigurationSource } from './interfaces/IConfigurationSource'
 import { JsonConfigurationProvider } from './services/JsonConfigurationProvider'
 import { DataProcessorService } from './services/DataProcessorService'
-import { DataWriterMock } from './mocks/DataWriterMock'
 import { Logger } from './services/Logger'
 import { ConfigurationManagerService } from './services/ConfigurationManagerService'
 import { ILogger } from './interfaces/ILogger'
@@ -16,6 +15,7 @@ import { Fee } from './enums/Fee'
 import { ExecutorService} from './services/ExecutorService';
 import { SchedulerService } from './services/SchedulerService'
 import { IScheduler } from './interfaces/IScheduler'
+import { DataPersistenceService } from './services/DataPersistenceService';
 
 export class App {
     private readonly configurationSource: IConfigurationSource;
@@ -45,7 +45,7 @@ export class App {
             this.dataProcessor = new DataProcessorService(this);
             this.logger.debug(`Data processor initialized: ${this.dataProcessor.constructor.name}`);
 
-            this.dataWriter = new DataWriterMock(this);
+            this.dataWriter = new DataPersistenceService(this);
             this.logger.debug(`Data writer initialized: ${this.dataWriter.constructor.name}`);
 
             this.executor = new ExecutorService(this);
@@ -94,14 +94,4 @@ export class App {
             this.logger.error(`shit happens ${e}`);
         }
     }
-
-
-    // let a = await this.dataSource.getQuote(this.config.tokenConfigs[0].address,
-    //     this.config.tokenConfigs[1].address,
-    //     Number(Fee[this.config.tokenConfigs[0].fee]),
-    //     ethers.parseUnits('1',this.config.tokenConfigs[0].decimals))
-    // this.logger.warn(` A ===========> ${a}`);  
-
-
-    // quoteWithExplicitParameters(quoterContract, WETH, USDC, FeeAmount.LOW, ethers.parseUnits(initialAmount.toString(),18));
 }
