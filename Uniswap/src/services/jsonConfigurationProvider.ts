@@ -36,7 +36,10 @@ export class JsonConfigurationProvider implements IConfigurationSource{
       tmpSource.loggerFilename,
       tmpSource.jsonRpcProvider,
       tmpSource.quoterContractAddress,
-      tmpSource.tokens
+      tmpSource.tokens,
+      tmpSource.schedulerConfig,
+      tmpSource.schedulerTimeout,
+      tmpSource.tokenBaseAmount
     )
 
     return tmpResult;
