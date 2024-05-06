@@ -10,10 +10,10 @@ export class DataProcessorService implements IDataProcessor{
         this.logger = app.getLogger();
     }
 
-    detectArbitrageOpportunity(inAmount: BigNumberish, outAmount: BigNumberish): boolean{
-        let result = BigInt(inAmount.toString()) < BigInt(outAmount.toString())
+    detectArbitrageOpportunity(inAmount: bigint, outAmount: bigint): boolean{
+        let result = inAmount < outAmount
 
-        this.logger.debug(`Running DataProcessorService.detectArbitrageOpportunity() method with parameters: inAmount: ${inAmount}, outAmount: ${outAmount} -> result: ${true}`)
+        this.logger.debug(`Running DataProcessorService.detectArbitrageOpportunity() method with parameters: inAmount: ${inAmount}, outAmount: ${outAmount} -> result: ${result}`)
 
         return result;
     }
