@@ -91,7 +91,7 @@ export class App {
             this.scheduler.addJob(this.executor.run.bind(this.executor))
             this.scheduler.startAllJobs();
         }   catch (e) {
-            this.logger.error(`shit happens ${e}`);
+            this.logger.error(`Application startup failed ${e}`);
         }
     }
 }
