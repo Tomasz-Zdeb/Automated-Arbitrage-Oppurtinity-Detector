@@ -16,6 +16,7 @@ import { ExecutorService} from './services/ExecutorService';
 import { SchedulerService } from './services/SchedulerService'
 import { IScheduler } from './interfaces/IScheduler'
 import { DataPersistenceService } from './services/DataPersistenceService';
+import { CommandLineConfigurationProvider } from './services/CommandLineConfigurationProvider';
 
 export class App {
     private readonly configurationSource: IConfigurationSource;
@@ -32,7 +33,10 @@ export class App {
 
     constructor() {
         try {
-            this.configurationSource = new ConfigurationManagerService(new JsonConfigurationProvider(App.defaultConfigPath))
+            this.configurationSource = new ConfigurationManagerService(
+                this,
+                new JsonConfigurationProvider(App.defaultConfigPath),
+                new CommandLineConfigurationProvider());
             this.config = this.configurationSource.getConfiguration();
 
             this.logger = new Logger({level: this.config.loggerLevel, filename: this.config.loggerFilename});
@@ -88,8 +92,9 @@ export class App {
     public async run(): Promise<void>{
         this.logger.info('Starting the application');
         try {
-            this.scheduler.addJob(this.executor.run.bind(this.executor))
-            this.scheduler.startAllJobs();
+            //this.scheduler.addJob(this.executor.run.bind(this.executor))
+            //this.scheduler.startAllJobs();     
+            console.log('App.run() executed succesfully');       
         }   catch (e) {
             this.logger.error(`Application startup failed ${e}`);
         }

@@ -1,20 +1,29 @@
 import { IConfigurationSource } from '../interfaces/IConfigurationSource';
+import { Config } from '../models/Config';
+import { IConfigurationModifier } from '../interfaces/IConfigurationModifier';
+import { App } from '../App';
+import { IncorrectValueError } from '../models/IncorrectValueError';
 
 export class ConfigurationManagerService implements IConfigurationSource {
+  private configuration: Config;
+  
 
-  private configuration: any;
-
-  constructor(fileConfigurationProvider: IConfigurationSource, 
-    commandLineParser?: IConfigurationSource
+  constructor(app: App, fileConfigurationProvider: IConfigurationSource, 
+    commandLineParser?: IConfigurationModifier
   ) {
-    this.configuration = fileConfigurationProvider.getConfiguration();
-    //TODO IMPLEMENT CONDITIONAL FETCHING FOR COMMAND LINE PARSER IF IT WAS PASSED TO CTOR
+    if (commandLineParser) {
+      try {
+        this.configuration = commandLineParser.getConfiguration(fileConfigurationProvider.getConfiguration());
+      } catch (e) {
+        console.error(`An error occured during parsing command line arguments, falling back to the static config from file! Error: ${e}`)
+        this.configuration = fileConfigurationProvider.getConfiguration();
+      }
+    } else {
+      this.configuration = fileConfigurationProvider.getConfiguration();
+    }
   }
 
-  //IMPLEMENT PRIVATE METHOD THAT WILL BE INVOKED IN CONSTRUCTOR THAT OVERRIDES/ADDSCONFIG
-  //FROM COMMAND LINE.
-
-  getConfiguration(): any{
+  getConfiguration(): Config{
     return this.configuration;
   }
 }
