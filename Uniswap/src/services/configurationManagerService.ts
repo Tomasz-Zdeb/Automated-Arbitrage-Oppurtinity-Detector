@@ -1,8 +1,9 @@
 import { IConfigurationSource } from '../interfaces/IConfigurationSource';
+import { Config } from '../models/Config';
 
 export class ConfigurationManagerService implements IConfigurationSource {
 
-  private configuration: any;
+  private configuration: Config;
 
   constructor(fileConfigurationProvider: IConfigurationSource, 
     commandLineParser?: IConfigurationSource
@@ -14,7 +15,7 @@ export class ConfigurationManagerService implements IConfigurationSource {
   //IMPLEMENT PRIVATE METHOD THAT WILL BE INVOKED IN CONSTRUCTOR THAT OVERRIDES/ADDSCONFIG
   //FROM COMMAND LINE.
 
-  getConfiguration(): any{
+  getConfiguration(): Config{
     return this.configuration;
   }
 }
