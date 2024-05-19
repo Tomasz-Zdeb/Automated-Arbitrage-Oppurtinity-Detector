@@ -5,10 +5,8 @@ export class ConfigurationManagerService implements IConfigurationSource {
 
   private configuration: Config;
 
-  constructor(fileConfigurationProvider: IConfigurationSource, 
-    commandLineParser?: IConfigurationSource
-  ) {
-    this.configuration = fileConfigurationProvider.getConfiguration();
+  constructor(configurationSource: IConfigurationSource) {
+    this.configuration = configurationSource.getConfiguration();
   }
 
   getConfiguration(): Config{
